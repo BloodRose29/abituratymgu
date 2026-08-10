@@ -1,0 +1,10 @@
+# Зависимости
+node_modules/
+
+# Сборка
+dist/
+
+# Логи и прочее
+*.log
+.DS_Store
+.vite/
