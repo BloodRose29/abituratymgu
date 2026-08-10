@@ -3,6 +3,7 @@ node_modules/
 
 # Сборка
 dist/
+*.zip
 
 # Логи и прочее
 *.log
