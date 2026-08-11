@@ -994,13 +994,31 @@ table tr:nth-child(even) td { background: var(--blue-50); }
 
 /* Ссылка на Telegram-аккаунт в карточках команды */
 .tg-link {
-  display: inline-block;
-  margin-top: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--space-3);
   font-family: var(--font-mono);
   font-weight: 600;
   font-size: var(--text-sm);
-  color: var(--blue-500);
+  color: var(--blue-700);
+  background: var(--blue-50);
+  border: 1px solid var(--blue-100);
+  border-radius: 999px;
+  padding: 4px 11px;
+  text-decoration: none;
+  transition: background .12s, border-color .12s, transform .12s;
 }
+
+.tg-link:hover {
+  background: var(--blue-100);
+  border-color: var(--blue-300);
+  color: var(--blue-800);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.tg-ico { font-size: 13px; line-height: 1; }
 
 /* ============ НАВИГАЦИЯ ПО РАЗДЕЛАМ ДЛИННОЙ СТРАНИЦЫ ============ */
 
@@ -1095,4 +1113,61 @@ table tr:nth-child(even) td { background: var(--blue-50); }
   html { scroll-behavior: auto; }
   * { transition: none !important; animation: none !important; }
   .card:hover, .btn:hover, .assist-fab:hover { transform: none; }
+}
+/* ============ REACT: вкладки, PDF-экспорт, кнопки ============ */
+
+/* Вкладки: <a> → <button>, подсветка активной */
+.tabbar-item {
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+.tabbar-item.active {
+  background: var(--blue-700);
+  color: var(--on-blue);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Панель экспорта памятки в PDF */
+.pdf-export-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--space-3);
+}
+.export-pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font: inherit;
+  font-weight: 700;
+  font-size: var(--text-sm);
+  cursor: pointer;
+  color: var(--blue-800);
+  background: var(--blue-50);
+  border: 2px solid var(--blue-500);
+  border-radius: var(--radius);
+  padding: 9px 16px;
+  transition: transform .12s, box-shadow .12s, background .12s;
+}
+.export-pdf-btn:hover:not(:disabled) {
+  background: var(--blue-100);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+.export-pdf-btn:disabled { opacity: .6; cursor: wait; }
+
+/* Полный контент для html2pdf — отрисован, но скрыт за экраном */
+.pdf-export-root {
+  position: absolute;
+  left: -10000px;
+  top: 0;
+  width: 820px;
+}
+.pdf-export-root { background: var(--white); padding: 0 20px; }
+.pdf-export-root h1, .pdf-export-root h2 { break-after: avoid; }
+
+/* Кнопки-вкладки не должны наследовать стили <a> */
+.main-nav a { text-decoration: none; }
+@media print {
+  .assist-fab, .assist-panel, .pdf-export-toolbar, .main-nav, .menu-toggle, .cta-band, .site-footer { display: none !important; }
 }
