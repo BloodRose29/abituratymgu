@@ -2,7 +2,6 @@ import type { Block, TabSection } from './types';
 
 /**
  * Страница «Иностранцам». Три вкладки: документы, медицина, цены.
- * Возможен экспорт памятки в PDF (кнопка на странице).
  */
 
 export const FOREIGN_TOP: Block = {

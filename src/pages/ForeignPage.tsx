@@ -9,7 +9,6 @@ import {
 import type { TabSection } from '../content/types';
 import { Blocks, BlockRow } from '../components/Blocks';
 import { RouteCompact } from '../components/RouteMarkers';
-import PdfExport from '../components/PdfExport';
 import Cta from '../components/Cta';
 
 /** Вкладка, в которой лежит целевой раздел (по якорю адреса). */
@@ -50,25 +49,6 @@ export default function ForeignPage() {
           <div className="content">
             <BlockRow b={FOREIGN_TOP} />
 
-            <div className="pdf-export-toolbar">
-              <PdfExport
-                filename="Памятка_иностранному_студенту_ТюмГУ.pdf"
-                label="Скачать памятку (PDF)"
-                busyLabel="Создание PDF…"
-              >
-                <section className="pdf-cover">
-                  <h1>Памятка иностранному студенту</h1>
-                  <p>Тюменский государственный университет · актуально на 2026 год</p>
-                </section>
-                {FOREIGN_SECTIONS.map((s) => (
-                  <section key={s.id}>
-                    <Blocks blocks={s.blocks} />
-                  </section>
-                ))}
-                <Blocks blocks={FOREIGN_BOTTOM} />
-              </PdfExport>
-            </div>
-
             <div className="tabbar" aria-label="Разделы страницы">
               {FOREIGN_SECTIONS.map((s) => (
                 <button
@@ -85,6 +65,8 @@ export default function ForeignPage() {
             <div id={section.id}>
               <Blocks blocks={section.blocks} />
             </div>
+
+            <Blocks blocks={FOREIGN_BOTTOM} />
           </div>
         </div>
       </section>
