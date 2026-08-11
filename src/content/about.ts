@@ -20,6 +20,7 @@ export const ABOUT_BLOCKS: Block[] = [
     cards: [
       {
         avatar: '👨‍💻',
+        photo: import.meta.env.BASE_URL + 'sheikh_avatar.webp',
         name: 'Шейх',
         tg: { user: '@khosji', url: 'https://t.me/khosji' },
       },
@@ -38,7 +39,7 @@ export const ABOUT_BLOCKS: Block[] = [
       { avatar: '👤', name: 'Деля', role: 'Физрук (ИФК)', tg: { user: '@delya22', url: 'https://t.me/delya22' } },
       { avatar: '👤', name: 'Кариша', role: 'Юрист (ШПИУ)', tg: { user: '@kaarriiishaaaa', url: 'https://t.me/kaarriiishaaaa' } },
       { avatar: '👩‍⚖️', name: 'Вика', role: 'Юрист (ШПИУ)', tg: { user: '@viikusm', url: 'https://t.me/viikusm' } },
-      { avatar: '👨‍💻', name: 'Шейх', role: 'ИСИТ (ШКН)', tg: { user: '@khosji', url: 'https://t.me/khosji' } },
+      { avatar: '👨‍💻', photo: import.meta.env.BASE_URL + 'sheikh_avatar.webp', name: 'Шейх', role: 'ИСИТ (ШКН)', tg: { user: '@khosji', url: 'https://t.me/khosji' } },
     ],
   },
 

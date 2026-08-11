@@ -9,7 +9,9 @@ export default function Header() {
     <header className="site-header">
       <div className="container header-inner">
         <Link to="/" className="brand">
-          <div className="brand-logo">{BRAND.logo}</div>
+          <div className="brand-logo">
+            <img src={BRAND.logo} alt="Логотип ТюмГУ" />
+          </div>
           <div className="brand-text">
             <strong>{BRAND.name}</strong>
             <span>{BRAND.tagline}</span>

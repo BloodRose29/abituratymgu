@@ -87,12 +87,24 @@ export function BlockRow({ b }: { b: Block }) {
         <div className="team">
           {b.cards.map((card, i) => (
             <div className="team-card" key={i}>
-              <div className="avatar">{card.avatar}</div>
+              <div className="avatar">
+                {card.photo ? (
+                  <img className="avatar-photo" src={card.photo} alt={card.name} />
+                ) : (
+                  card.avatar
+                )}
+              </div>
               <h3>{card.name}</h3>
               {card.role && <div className="role">{card.role}</div>}
               {card.tg && (
                 <a className="tg-link" href={card.tg.url} target="_blank" rel="noopener noreferrer">
-                  <span className="tg-ico" aria-hidden="true">✈️</span> {card.tg.user}
+                  <img
+                    className="tg-ico"
+                    src={import.meta.env.BASE_URL + 'telegram_icon.webp'}
+                    alt=""
+                    aria-hidden="true"
+                  />{' '}
+                  {card.tg.user}
                 </a>
               )}
             </div>
