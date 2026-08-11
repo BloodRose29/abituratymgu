@@ -1,22 +1,36 @@
-import { useState } from 'react';
-import type { RefObject } from 'react';
+import { useRef, useState } from 'react';
+import type { ReactNode } from 'react';
 
 interface PdfExportProps {
-  targetRef: RefObject<HTMLElement | null>;
   filename: string;
   label: string;
   busyLabel: string;
+  /** Контент памятки для PDF — рендерится в скрытом контейнере. */
+  children: ReactNode;
 }
 
-/** Кнопка «Скачать памятку PDF» — экспортирует переданный элемент через html2pdf.js. */
-export default function PdfExport({ targetRef, filename, label, busyLabel }: PdfExportProps) {
+/**
+ * Кнопка «Скачать памятку (PDF)».
+ * html2canvas не умеет рисовать элементы за пределами экрана, поэтому во время
+ * экспорта контейнер на короткое время перемещается в левый верхний угол
+ * (position: fixed), захватывается в PDF и снова прячется за экран.
+ * html2pdf.js подгружается только по клику (dynamic import).
+ */
+export default function PdfExport({ filename, label, busyLabel, children }: PdfExportProps) {
   const [busy, setBusy] = useState(false);
+  const [active, setActive] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
 
   const onClick = async () => {
-    if (!targetRef.current) return;
+    if (!rootRef.current || busy) return;
     setBusy(true);
+    setActive(true);
     try {
-      // html2pdf.js тяжелый (~1 МБ) — подгружается только по клику
+      // Ждём перерисовку (класс .pdf-export-active) и готовность шрифтов,
+      // иначе html2canvas поймает элементы до перекомпоновки.
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+      if (document.fonts && document.fonts.ready) await document.fonts.ready;
+
       const { default: html2pdf } = await import('html2pdf.js');
       await html2pdf()
         .set({
@@ -26,19 +40,30 @@ export default function PdfExport({ targetRef, filename, label, busyLabel }: Pdf
           html2canvas: { scale: 2, useCORS: true, letterRendering: true },
           jsPDF: { unit: 'mm' as const, format: 'a4' as const, orientation: 'portrait' as const },
         })
-        .from(targetRef.current)
+        .from(rootRef.current)
         .save();
     } catch (e) {
       console.error('Failed to create PDF:', e);
+      alert('Не удалось создать PDF. Попробуйте ещё раз.');
     } finally {
+      setActive(false);
       setBusy(false);
     }
   };
 
   return (
-    <button className="export-pdf-btn" onClick={onClick} disabled={busy}>
-      <span aria-hidden="true">⬇️</span>
-      <span>{busy ? busyLabel : label}</span>
-    </button>
+    <>
+      <button className="export-pdf-btn" onClick={onClick} disabled={busy}>
+        <span aria-hidden="true">⬇️</span>
+        <span>{busy ? busyLabel : label}</span>
+      </button>
+      <div
+        ref={rootRef}
+        className={active ? 'pdf-export-root pdf-export-active' : 'pdf-export-root'}
+        aria-hidden={active ? undefined : 'true'}
+      >
+        {children}
+      </div>
+    </>
   );
 }

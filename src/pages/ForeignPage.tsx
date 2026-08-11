@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
   FOREIGN_SECTIONS,
@@ -24,7 +24,6 @@ function tabForAnchor(anchor?: string, sections: TabSection[] = FOREIGN_SECTIONS
 export default function ForeignPage() {
   const params = useParams();
   const anchor = params.anchor;
-  const exportRef = useRef<HTMLDivElement>(null);
   const [tab, setTab] = useState(() => tabForAnchor(anchor));
 
   useEffect(() => {
@@ -53,11 +52,21 @@ export default function ForeignPage() {
 
             <div className="pdf-export-toolbar">
               <PdfExport
-                targetRef={exportRef}
                 filename="Памятка_иностранному_студенту_ТюмГУ.pdf"
                 label="Скачать памятку (PDF)"
                 busyLabel="Создание PDF…"
-              />
+              >
+                <section className="pdf-cover">
+                  <h1>Памятка иностранному студенту</h1>
+                  <p>Тюменский государственный университет · актуально на 2026 год</p>
+                </section>
+                {FOREIGN_SECTIONS.map((s) => (
+                  <section key={s.id}>
+                    <Blocks blocks={s.blocks} />
+                  </section>
+                ))}
+                <Blocks blocks={FOREIGN_BOTTOM} />
+              </PdfExport>
             </div>
 
             <div className="tabbar" aria-label="Разделы страницы">
@@ -79,16 +88,6 @@ export default function ForeignPage() {
           </div>
         </div>
       </section>
-
-      {/* Полная памятка для экспорта в PDF — вне экрана, но отрисована */}
-      <div className="pdf-export-root" ref={exportRef} aria-hidden="true">
-        {FOREIGN_SECTIONS.map((s) => (
-          <section key={s.id}>
-            <Blocks blocks={s.blocks} />
-          </section>
-        ))}
-        <Blocks blocks={FOREIGN_BOTTOM} />
-      </div>
 
       <Cta />
     </>
