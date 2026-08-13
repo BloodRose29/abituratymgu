@@ -36,9 +36,9 @@ export const ABOUT_BLOCKS: Block[] = [
     t: 'team',
     cards: [
       { avatar: '👤', photo: import.meta.env.BASE_URL + 'Danya_avatar.webp', name: 'Даня', role: 'Пед (ШКН)', tg: { user: '@a4res_0', url: 'https://t.me/a4res_0' } },
-      { avatar: '👤', photo: import.meta.env.BASE_URL + 'Delya_avatar.webp', name: 'Деля', role: 'Физрук (ИФК)', tg: { user: '@delya22', url: 'https://t.me/delya22' } },
-      { avatar: '👤', name: 'Кариша', role: 'Юрист (ШПИУ)', tg: { user: '@kaarriiishaaaa', url: 'https://t.me/kaarriiishaaaa' } },
-      { avatar: '👩‍⚖️', name: 'Вика', role: 'Юрист (ШПИУ)', tg: { user: '@viikusm', url: 'https://t.me/viikusm' } },
+      { avatar: '👤', photo: import.meta.env.BASE_URL + 'Delya_avatar.webp', imgClass: 'avatar-fit', name: 'Деля', role: 'Физрук (ИФК)', tg: { user: '@delya22', url: 'https://t.me/delya22' } },
+      { avatar: '👩‍⚖️', photo: import.meta.env.BASE_URL + 'karisha_avatar.webp', name: 'Кариша', role: 'Юрист (ШПИУ)', tg: { user: '@kaarriiishaaaa', url: 'https://t.me/kaarriiishaaaa' } },
+      { avatar: '👩‍⚖️', photo: import.meta.env.BASE_URL + 'vika_avatar.webp', name: 'Вика', role: 'Юрист (ШПИУ)', tg: { user: '@viikusm', url: 'https://t.me/viikusm' } },
       { avatar: '👨‍💻', photo: import.meta.env.BASE_URL + 'sheikh_avatar.webp', name: 'Шейх', role: 'ИСИТ (ШКН)', tg: { user: '@khosji', url: 'https://t.me/khosji' } },
     ],
   },

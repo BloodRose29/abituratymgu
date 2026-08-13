@@ -89,7 +89,7 @@ export function BlockRow({ b }: { b: Block }) {
             <div className="team-card" key={i}>
               <div className="avatar">
                 {card.photo ? (
-                  <img className="avatar-photo" src={card.photo} alt={card.name} />
+                  <img className={'avatar-photo' + (card.imgClass ? ' ' + card.imgClass : '')} src={card.photo} alt={card.name} />
                 ) : (
                   card.avatar
                 )}

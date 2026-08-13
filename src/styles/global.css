@@ -714,6 +714,15 @@ table tr:nth-child(even) td { background: var(--blue-50); }
   display: block;
 }
 
+/* Деля: заполнить круг (cover) и поднять кадр так, чтобы голова была
+   видна целиком с небольшим отступом сверху (без среза макушки). */
+.team-card .avatar-photo.avatar-fit {
+  object-fit: cover;
+  object-position: 50% 40%;
+  transform: scale(1.12);
+  transform-origin: 50% 0;
+}
+
 .team-card h3 { font-family: var(--font-body); font-weight: 700; font-size: var(--text-h3); color: var(--blue-900); }
 .team-card .role { font-size: var(--text-sm); color: var(--gray-600); margin-top: var(--space-1); }
 

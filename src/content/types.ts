@@ -15,6 +15,7 @@ export interface TgItem {
 export interface TeamCard {
   avatar: string;
   photo?: string;
+  imgClass?: string;
   name: string;
   role?: string;
   tg?: { user: string; url: string };
